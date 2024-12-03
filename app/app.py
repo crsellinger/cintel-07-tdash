@@ -128,7 +128,7 @@ with ui.layout_columns():
             return render.DataGrid(filtered_df()[cols], filters=True)
 
 
-#ui.include_css(app_dir / "styles.css")
+ui.include_css(app_dir/"styles.css",method='link')
 
 # Reactive Calc funtion for filtering data
 @reactive.calc
