@@ -127,7 +127,7 @@ with ui.layout_columns():
             # DataGrid holds data and options for spreadsheet view of a data frame
             return render.DataGrid(filtered_df()[cols], filters=True)
 
-
+# need to wrap file path in double quotes and use forward slash not backslash to work
 ui.include_css("app/app_dir/styles.css",method='link')
 
 # Reactive Calc funtion for filtering data
