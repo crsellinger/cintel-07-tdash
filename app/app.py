@@ -1,3 +1,14 @@
+######################################
+# Caleb Sellinger
+# 44-630 Continuous Intelligence
+# Dr. Case
+# 12-5-2024
+######################################
+
+#####################
+# Imports
+#####################
+
 import seaborn as sns
 from faicons import icon_svg
 
@@ -5,26 +16,36 @@ from shiny import reactive
 from shiny.express import input, render, ui
 import palmerpenguins 
 
+# Load dataset into program
 df = palmerpenguins.load_penguins()
 
+# Page options for Shiny
 ui.page_opts(title="Penguins dashboard", fillable=True)
 
+#################
+# Sidebar
+#################
 
 with ui.sidebar(title="Filter controls"):
+    # Slider component, ID, display title, min value, max value, default value
     ui.input_slider("mass", "Mass", 2000, 6000, 6000)
+    # Checkbox, ID, Display title, choices, default selected choices
     ui.input_checkbox_group(
         "species",
         "Species",
         ["Adelie", "Gentoo", "Chinstrap"],
         selected=["Adelie", "Gentoo", "Chinstrap"],
     )
+    # .hr method used to separate elements with a line
     ui.hr()
+    # Header, size 6
     ui.h6("Links")
     ui.a(
         "GitHub Source",
         href="https://github.com/denisecase/cintel-07-tdash",
         target="_blank",
     )
+    # .a method used to insert link
     ui.a(
         "GitHub App",
         href="https://denisecase.github.io/cintel-07-tdash/",
@@ -47,8 +68,13 @@ with ui.sidebar(title="Filter controls"):
         target="_blank",
     )
 
+########################
+# Main Content (Body)
+########################
 
+# Grid-like layout, wraps a 1d sequence of UI elements into a 2d grid
 with ui.layout_column_wrap(fill=False):
+    # An opinionated box designed for displaying a title, value, and any other child components
     with ui.value_box(showcase=icon_svg("earlybirds")):
         "Number of penguins"
 
@@ -72,7 +98,9 @@ with ui.layout_column_wrap(fill=False):
 
 
 with ui.layout_columns():
+    # For Bootstrap components, general purpose container for grouping related UI elements
     with ui.card(full_screen=True):
+        # Header for card component
         ui.card_header("Bill length and depth")
 
         @render.plot
@@ -96,12 +124,13 @@ with ui.layout_columns():
                 "bill_depth_mm",
                 "body_mass_g",
             ]
+            # DataGrid holds data and options for spreadsheet view of a data frame
             return render.DataGrid(filtered_df()[cols], filters=True)
 
 
 #ui.include_css(app_dir / "styles.css")
 
-
+# Reactive Calc funtion for filtering data
 @reactive.calc
 def filtered_df():
     filt_df = df[df["species"].isin(input.species())]
