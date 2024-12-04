@@ -14,7 +14,8 @@ from faicons import icon_svg
 
 from shiny import reactive
 from shiny.express import input, render, ui
-import palmerpenguins 
+import palmerpenguins
+from pathlib import Path
 
 # Load dataset into program
 df = palmerpenguins.load_penguins()
