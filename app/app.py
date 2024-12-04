@@ -20,8 +20,7 @@ from pathlib import Path
 # Load dataset into program
 df = palmerpenguins.load_penguins()
 
-css_file = Path(__file__).parent / "app_dir" / "styles.css"
-# need to wrap file path in double quotes and use forward slash not backslash to work
+css_file = Path(__file__).parent / "styles.css"
 ui.include_css(css_file)
 
 # Page options for Shiny
